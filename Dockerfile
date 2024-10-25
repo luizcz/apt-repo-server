@@ -1,5 +1,4 @@
-FROM ubuntu:14.04.3
-MAINTAINER Doro Wu <fcwu.tw@gmail.com>
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,7 +13,7 @@ ADD nginx.conf /etc/nginx/sites-enabled/default
 ADD startup.sh /
 ADD scan.py /
 
-ENV DISTS trusty
+ENV DISTS noble
 ENV ARCHS amd64,i386
 EXPOSE 80
 VOLUME /data
