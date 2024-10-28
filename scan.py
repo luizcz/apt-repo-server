@@ -1,18 +1,17 @@
-#!/usr/bin/env python
-
+#!/usr/bin/env python3
 import subprocess as sp
-from gevent.queue import Queue
-from Queue import Empty as QueueEmpty
-from gevent import spawn
-import signal
-from gevent import select
 import os
+import signal
+from gevent import spawn, select
+from gevent.queue import Queue, Empty as QueueEmpty
 
 
 log = open('/dev/stdout', 'w')
 
 
 def info(msg):
+    if isinstance(msg, bytes):
+        msg = msg.decode('utf-8')
     if msg[-1] == '\n':
         log.write(msg[:-1])
     else:
@@ -41,6 +40,8 @@ def main():
                     break
                 if rlist:
                     line = p.stdout.readline().strip()
+                    if isinstance(line, bytes):
+                        line = line.decode('utf-8')
                     if len(line) == 0:
                         continue
                     if line.endswith('Packages.gz'):
